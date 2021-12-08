@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class StateMachineMovement : MonoBehaviour
@@ -54,110 +55,129 @@ public class StateMachineMovement : MonoBehaviour
                 break;
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && HealthPotion.HpPotion.hp_potion_amount > 0)
+        if (Input.GetKeyDown(KeyCode.Q) && Inventory.HealthPotion.hp_potion_amount > 0)
         {
-            HealthPotion.HpPotion.AddHealth();
-            HealthPotion.HpPotion.hp_potion_amount -= 1;
+            Inventory.HealthPotion.AddHealth();
+            Inventory.HealthPotion.hp_potion_amount -= 1;
+            Debug.Log($"Player health {PlayerProfile.Instance.playerHealth} potion count: {Inventory.HealthPotion.hp_potion_amount}");
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && ManaPotion.MpPotion.mp_potion_amount > 0 )
+        if (Input.GetKeyDown(KeyCode.E) && Inventory.manaPotion.mp_potion_amount > 0)
         {
-            ManaPotion.MpPotion.AddMana();
-            ManaPotion.MpPotion.mp_potion_amount -= 1;
+            Inventory.manaPotion.AddMana();
+            Inventory.manaPotion.mp_potion_amount -= 1;
+            Debug.Log($"Player mana {PlayerProfile.Instance.playerMana} potion count: {Inventory.manaPotion.mp_potion_amount}");
         }
-    }
+        /*
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            _currentState = State.moving;
+        }
+        */
 
-    private void OnTriggerStay(Collider other)
+        if (_currentState == State.falling || _currentState == State.jumping && Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A)
+        || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            _currentSecondState = SecondState.moveinair;
+        }
+        if(Input.GetKey(KeyCode.W) && Input.GetKeyDown(KeyCode.Space) 
+           || (Input.GetKey(KeyCode.A) && Input.GetKeyDown(KeyCode.Space) || 
+               (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Space) || 
+                (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.Space)))))
+        {
+            _currentState = State.jumping;
+            _currentSecondState = SecondState.moveinair;
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            _currentSecondState = SecondState.crouch;
+            _currentState = State.moving;
+        } 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _currentState = State.jumping;
+            _currentSecondState = SecondState.moveinair;
+        }
+        else
+        {
+           //_currentState = State.moving;
+           //_currentSecondState = SecondState.standing;
+        }
+            
+}
+
+private void OnCollisionExit(Collision other)
+{
+    if (other.gameObject.CompareTag("Ground"))
     {
-        if (other.CompareTag("Ground"))
-        {
-            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
-            {
-                _currentState = State.moving;
-            }
-            if(Input.GetKey(KeyCode.W) && Input.GetKeyDown(KeyCode.Space) 
-                    || (Input.GetKey(KeyCode.A) && Input.GetKeyDown(KeyCode.Space) || 
-                        (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Space) || 
-                         (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.Space)))))
-            {
-                _currentState = State.jumping;
-                _currentSecondState = SecondState.moveinair;
-            }
+        _currentState = State.falling;
+        _currentSecondState = SecondState.moveinair;
+    }
+}
 
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                _currentSecondState = SecondState.crouch;
-            }
-            else if (Input.GetKey(KeyCode.Space))
-            {
-                _currentState = State.jumping;
-                _currentSecondState = SecondState.moveinair;
-            }
-            else 
-            {
-                _currentSecondState = SecondState.standing;
-            }
-        }
-    }
-    private void OnTriggerExit(Collider other)
+private void OnCollisionEnter(Collision other)
+{
+    if (other.gameObject.CompareTag("Ground"))
     {
-       if (other.CompareTag("Ground"))
-       {
-           _currentState = State.falling;
-           _currentSecondState = SecondState.moveinair;
-       }
+        _currentState = State.moving;
+        _currentSecondState = SecondState.standing;
     }
+}
+
+
+
+
+//Movement on the ground
+private void Move()
+{
+    if (Input.GetKey(KeyCode.W))
+    {
+        rb.velocity = Vector3.forward *speed;
+    }
+
+    if (Input.GetKey(KeyCode.A))
+    {
+        rb.velocity = Vector3.left *speed;
+    }
+
+    if (Input.GetKey(KeyCode.S))
+    {
+        rb.velocity = Vector3.back *speed;
+    }
+
+    if (Input.GetKey(KeyCode.D))
+    {
+        rb.velocity = Vector3.right *speed;
+    }
+}
     
-    //Movement on the ground
-    private void Move()
+//Movement in the air
+private void MoveInAir()
+{
+    if (Input.GetKey(KeyCode.W))
     {
-        if (Input.GetKey(KeyCode.W))
-        {
-            rb.velocity = Vector3.forward *speed;
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            rb.velocity = Vector3.left *speed;
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            rb.velocity = Vector3.back *speed;
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            rb.velocity = Vector3.right *speed;
-        }
-    }
-    
-    //Movement in the air
-    private void MoveInAir()
-    {
-        if (Input.GetKey(KeyCode.W))
-        {
-            rb.velocity += Vector3.forward *speed *Time.deltaTime;
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            rb.velocity += Vector3.left *speed *Time.deltaTime;
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            rb.velocity += Vector3.back *speed *Time.deltaTime;
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            rb.velocity += Vector3.right *speed *Time.deltaTime;
-        }
+        rb.velocity += Vector3.forward *speed *Time.deltaTime;
     }
 
-    private void Jump()
+    if (Input.GetKey(KeyCode.A))
     {
-        rb.velocity = Vector3.up *jumpspeed;
+        rb.velocity += Vector3.left *speed *Time.deltaTime;
     }
+
+    if (Input.GetKey(KeyCode.S))
+    {
+        rb.velocity += Vector3.back *speed *Time.deltaTime;
+    }
+
+    if (Input.GetKey(KeyCode.D))
+    {
+        rb.velocity += Vector3.right *speed *Time.deltaTime;
+    }
+}
+
+private void Jump()
+{
+    rb.velocity = Vector3.up *jumpspeed;
+}
 }
