@@ -11,6 +11,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UIWithDelegates.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07c89f7520694139991332d3cf930d4813bc00/cc/9a81137b/KeyCode.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="220WTLCnhxWaJTiPXh5qiFajZWL" />
@@ -38,10 +39,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="10368">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="10368" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -58,6 +59,9 @@
       <option name="presentableId" value="Default" />
       <updated>1638974995242</updated>
       <workItem from="1638974998659" duration="9064000" />
+      <workItem from="1639051182413" duration="1539000" />
+      <workItem from="1639053002902" duration="6969000" />
+      <workItem from="1639062229422" duration="13897000" />
     </task>
     <servers />
   </component>

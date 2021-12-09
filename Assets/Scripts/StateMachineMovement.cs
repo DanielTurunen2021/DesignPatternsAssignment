@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class StateMachineMovement : MonoBehaviour
@@ -18,7 +17,7 @@ public class StateMachineMovement : MonoBehaviour
     {
         moveinair,
         crouch,
-        standing
+        standing,
     }
 
     private State _currentState;
@@ -39,6 +38,9 @@ public class StateMachineMovement : MonoBehaviour
                 break;
             case State.jumping:
                 Jump();
+                break;
+            case State.falling:
+                //rb.velocity = Vector3.down;
                 break;
         }
         
@@ -75,35 +77,32 @@ public class StateMachineMovement : MonoBehaviour
         }
         */
 
-        if (_currentState == State.falling || _currentState == State.jumping && Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A)
-        || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        if (_currentState == State.falling && Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
             _currentSecondState = SecondState.moveinair;
         }
-        if(Input.GetKey(KeyCode.W) && Input.GetKeyDown(KeyCode.Space) 
-           || (Input.GetKey(KeyCode.A) && Input.GetKeyDown(KeyCode.Space) || 
-               (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Space) || 
-                (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.Space)))))
+        
+        /*if((Input.GetKey(KeyCode.W) && Input.GetKeyDown(KeyCode.Space)
+            || (Input.GetKey(KeyCode.A) && Input.GetKeyDown(KeyCode.Space) || 
+                (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Space) || 
+                 (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.Space))))))
         {
             _currentState = State.jumping;
             _currentSecondState = SecondState.moveinair;
         }
+        */
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if(Input.GetKey(KeyCode.LeftShift))
         {
             _currentSecondState = SecondState.crouch;
             _currentState = State.moving;
         } 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && _currentState == State.moving)
         {
             _currentState = State.jumping;
             _currentSecondState = SecondState.moveinair;
         }
-        else
-        {
-           //_currentState = State.moving;
-           //_currentSecondState = SecondState.standing;
-        }
+        
             
 }
 
