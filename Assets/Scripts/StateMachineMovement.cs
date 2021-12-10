@@ -60,15 +60,17 @@ public class StateMachineMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && Inventory.HealthPotion.hp_potion_amount > 0)
         {
             Inventory.HealthPotion.AddHealth();
-            Inventory.HealthPotion.hp_potion_amount -= 1;
-            Debug.Log($"Player health {PlayerProfile.Instance.playerHealth} potion count: {Inventory.HealthPotion.hp_potion_amount}");
+            //Inventory.HealthPotion.hp_potion_amount -= 1;
+            Inventory.ChangeHealth(PlayerProfile.Instance.playerHealth);
+            Inventory.useHealthPotion(Inventory.HealthPotion.hp_potion_amount);
         }
 
         if (Input.GetKeyDown(KeyCode.E) && Inventory.manaPotion.mp_potion_amount > 0)
         {
             Inventory.manaPotion.AddMana();
-            Inventory.manaPotion.mp_potion_amount -= 1;
-            Debug.Log($"Player mana {PlayerProfile.Instance.playerMana} potion count: {Inventory.manaPotion.mp_potion_amount}");
+            //Inventory.manaPotion.mp_potion_amount -= 1;
+            Inventory.ChangeMana(PlayerProfile.Instance.playerMana);
+            Inventory.useManaPotion(Inventory.manaPotion.mp_potion_amount);
         }
         /*
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
