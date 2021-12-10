@@ -1,10 +1,11 @@
-﻿using Random = UnityEngine.Random;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class HealthPotion 
 {
     private static HealthPotion _healthPotion;
     public int hp_potion_amount = 0;
-
 
     public static HealthPotion HpPotion
     {
