@@ -6,7 +6,7 @@ public class ParticleObjectPool : MonoBehaviour
 {
     private Queue<GameObject> fountainObjectPool;
     private float timer = 1f;
-    private float returntimer = 5f;
+    private float returntimer = 2f;
     [SerializeField] private GameObject particle;
 
     private void Start()
@@ -17,17 +17,18 @@ public class ParticleObjectPool : MonoBehaviour
     private void Update()
     {
         timer -= Time.deltaTime;
+        returntimer -= Time.deltaTime;
         if (timer < 0.0f)
         {
             var go = FountainObjectPoolSpawn();
             go.transform.position = Random.insideUnitSphere * 1;
         }
-        timer = 1f;
-        returntimer -= Time.deltaTime;
         if (returntimer < 0.0f)
         {
             ObjectPoolReturn(particle);
         }
+        timer = 1f;
+        returntimer = 2f;
     }
 
     private void ObjectPool()
@@ -37,7 +38,7 @@ public class ParticleObjectPool : MonoBehaviour
         for (var i = 0; i < 10; i++)
         {
             var go = Instantiate(particle);
-            go.GetComponent<MeshRenderer>().enabled = true;
+            go.GetComponent<MeshRenderer>().enabled = false;
             fountainObjectPool.Enqueue(go);
         }
     }

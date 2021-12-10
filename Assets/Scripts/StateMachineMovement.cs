@@ -39,7 +39,6 @@ public class StateMachineMovement : MonoBehaviour
                 Jump();
                 break;
             case State.falling:
-                //rb.velocity = Vector3.down;
                 break;
         }
         
@@ -59,7 +58,6 @@ public class StateMachineMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && Inventory.HealthPotion.hp_potion_amount > 0)
         {
             Inventory.HealthPotion.AddHealth();
-            //Inventory.HealthPotion.hp_potion_amount -= 1;
             Inventory.ChangeHealth(PlayerProfile.Instance.playerHealth);
             Inventory.useHealthPotion(Inventory.HealthPotion.hp_potion_amount);
         }
@@ -67,32 +65,13 @@ public class StateMachineMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && Inventory.manaPotion.mp_potion_amount > 0)
         {
             Inventory.manaPotion.AddMana();
-            //Inventory.manaPotion.mp_potion_amount -= 1;
             Inventory.ChangeMana(PlayerProfile.Instance.playerMana);
             Inventory.useManaPotion(Inventory.manaPotion.mp_potion_amount);
         }
-        /*
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
-        {
-            _currentState = State.moving;
-        }
-        */
-
         if (_currentState == State.falling && Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
             _currentSecondState = SecondState.moveinair;
         }
-        
-        /*if((Input.GetKey(KeyCode.W) && Input.GetKeyDown(KeyCode.Space)
-            || (Input.GetKey(KeyCode.A) && Input.GetKeyDown(KeyCode.Space) || 
-                (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Space) || 
-                 (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.Space))))))
-        {
-            _currentState = State.jumping;
-            _currentSecondState = SecondState.moveinair;
-        }
-        */
-
         if(Input.GetKey(KeyCode.LeftShift))
         {
             _currentSecondState = SecondState.crouch;
@@ -103,9 +82,7 @@ public class StateMachineMovement : MonoBehaviour
             _currentState = State.jumping;
             _currentSecondState = SecondState.moveinair;
         }
-        
-            
-}
+    }
 
 private void OnCollisionExit(Collision other)
 {
