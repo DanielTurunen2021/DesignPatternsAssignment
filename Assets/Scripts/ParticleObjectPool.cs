@@ -28,19 +28,6 @@ public class ParticleObjectPool : MonoBehaviour
         {
             ObjectPoolReturn(particle);
         }
-
-        /*
-        timer -= Time.deltaTime;
-
-        if (timer < 0.0f)
-        {
-            for (int i = 0; i < 1; i++)
-            {
-                Instantiate(particle, Random.insideUnitSphere * 2, Quaternion.identity);
-            }
-            timer = 1f;
-        }
-        */
     }
 
     private void ObjectPool()

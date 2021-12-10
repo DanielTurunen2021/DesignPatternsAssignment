@@ -33,9 +33,4 @@ public class PlayerProfile : MonoBehaviour
             instance = this;
         }
     }
-    
-    private void Update()
-    {
-        
-    }
 }

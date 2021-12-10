@@ -27,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 rb.velocity += Vector3.forward *jump  *Time.deltaTime;
-                //transform.position += Vector3.forward * speed * Time.deltaTime;
             }
         }
         if (Input.GetKey(KeyCode.A))

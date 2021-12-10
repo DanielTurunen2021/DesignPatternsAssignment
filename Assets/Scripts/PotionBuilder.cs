@@ -1,6 +1,6 @@
 ﻿class PotionBuilder
 {
-    public PotionBuilder(int health, int mana = 0)
+    public PotionBuilder(int health = 0, int mana = 0)
     {
         PlayerProfile.Instance.playerHealth += 100;
     }
@@ -10,6 +10,5 @@
         PlayerProfile.Instance.playerMana += 100;
     }
 
-    //private var potion = new PotionBuilder(int health: 100, int mana: 100);
-
+     PotionBuilder _potion = new PotionBuilder();
 }
