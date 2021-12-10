@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class StateMachineMovement : MonoBehaviour
 {
     private Rigidbody rb;

@@ -1,4 +1,7 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
 public enum PotionType
 {
     Health,
@@ -7,38 +10,43 @@ public enum PotionType
 
 public class PotionFactory : MonoBehaviour
 {
-   
-    /*
-    private static void AddHealth()
+    public PotionType type;
+
+
+    private void Update()
+    {
+
+        switch (type)
+        {
+            case PotionType.Health:
+                CreateHealthPotion();
+                break;
+            case PotionType.Mana:
+                CreateManaPotion();
+                break;
+        }
+    }
+
+
+
+    public void AddHealth()
     {
         PlayerProfile.Instance.playerHealth += Random.Range(50, 100);
     }
 
-    private static void AddMana()
+    public void AddMana()
     {
         PlayerProfile.Instance.playerMana += Random.Range(50, 100);
     }
 
     public static void CreateHealthPotion()
     {
-        return new PotionType.Health;
+        Inventory.HealthPotion.hp_potion_amount += 1;
     }
 
     public void CreateManaPotion()
     {
-        return new PotionType.Mana;
+        Inventory.manaPotion.mp_potion_amount += 1;
     }
-    */
-    //public IPotion Create(PotionType type)
-    //{
-       // switch (type)
-       // {
-       //     case PotionType.Health:
-       //         return new HealthPotion();
-       //     case PotionType.Mana:
-       //         return new ManaPotion();
-       //     default:
-       //         throw new ArgumentOutOfRangeException();
-       // }
-    //}
 }
+

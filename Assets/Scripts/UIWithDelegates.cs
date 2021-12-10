@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -45,6 +44,6 @@ public class UIWithDelegates : MonoBehaviour
 
     public void UpdateManaAmount(int amount)
     {
-        mana.text = $"Curent mana {amount}";
+        mana.text = $"Curent mana: {amount}";
     }
 }
