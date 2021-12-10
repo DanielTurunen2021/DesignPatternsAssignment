@@ -83,6 +83,8 @@ public class StateMachineMovement : MonoBehaviour
             _currentSecondState = SecondState.moveinair;
         }
     }
+    
+    
 
 private void OnCollisionExit(Collision other)
 {

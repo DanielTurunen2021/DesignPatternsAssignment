@@ -23,7 +23,6 @@ public class PlayerProfile : MonoBehaviour
     
     private void Awake()
     {
-        //If there is an instance and the instance is not this instance; destroy this instance.
         if (instance != null  && instance != this)
         {
             Destroy(this.gameObject);
